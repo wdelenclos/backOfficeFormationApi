@@ -24,16 +24,16 @@ module.exports = class User{
     }
 
     isValidRoom(){
-	   return (typeof this.room === 'object' && this.room.isAvailable())
+	   return (typeof this.room === 'object' && this.room.isAvailable(this.places, this.date, this.duration))
     }
     isValidTeacher(){
         return (typeof this.teacher === 'object' && this.teacher.isValidTeacher())
     }
     isValidStudentClass(){
-        return (typeof this.studentClass === 'object' && this.studentClass.isValidClass())
+        return (typeof this.studentClass === 'object' && this.studentClass.isValidClass() && this.studentClass.size <= this.places)
     }
     createCourse(){
-        if(!this.isValidName() || !this.isValidPlaces() || this.isValidRoom() || this.isValidTeacher()){
+        if(!this.isValidName() || !this.isValidPlaces() || this.isValidRoom() || this.isValidTeacher() || this.isValidStudentClass()){
             return false
         }
         return this;
