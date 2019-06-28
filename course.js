@@ -1,4 +1,6 @@
-const database = require('/service/database.js');
+const DB = require('/service/database.js');
+
+const database = new DB;
 
 module.exports = class User{
 	constructor(name,description,places, reservation, teacher, room, date, duration) {
