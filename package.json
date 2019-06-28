@@ -1,0 +1,15 @@
+{
+  "name": "TD",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.7.1"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "nodemailer": "^6.1.1"
+  }
+}
