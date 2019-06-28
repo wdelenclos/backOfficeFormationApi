@@ -1,21 +1,23 @@
-module.exports = class User{
-	constructor(name,description,places, studentClass, teacher, room, date, duration) {
+const DB = require('./service/database.js');
+
+const database = new DB();
+
+module.exports = class Course{
+	constructor(name,description, places, reservation, students, teacher, room, date, duration) {
 	    this.name = name;
 	    this.description = description;
 	    this.places = places;
-	    this.studentClass = studentClass;
+	    this.reservation = reservation;
 	    this.teacher = teacher;
-        this.room = room;
-        console.log(date)
+        this.students = students;
+	    this.room = database.get('room',{'room.name' : room.name});
 	    this.date = date;
 	    this.duration = duration;
   	}
 
   	isValid(){
-      if (!this.isValidName() || !this.isValidPlaces() || this.isValidRoom() || this.isValidTeacher()){
-        return false
-      }
-  		return true;
+      return !(!this.isValidName() || !this.isValidPlaces() || !this.isValidRoom() || !this.isValidTeacher() || !this.isValidStudent() || !this.isValidDescription);
+
   	}
     isValidName(){
       return (this.name !== null && this.name !== "")
@@ -24,19 +26,23 @@ module.exports = class User{
         return (this.places > 0 && this.places !== "") && (this.places !== null && this.places !== "")
     }
 
+    isValidStudent(){
+	    return (this.students !== null && this.name !== "")
+    }
     isValidRoom(){
 	   return (typeof this.room === 'object' && this.room.isAvailable(this.places, this.date, this.duration))
     }
     isValidTeacher(){
         return (typeof this.teacher === 'object' && this.teacher.isValidTeacher())
     }
-    isValidStudentClass(){
-        return (typeof this.studentClass === 'object' && this.studentClass.isValidClass() && this.studentClass.size <= this.places)
+    isValidDescription(){
+	    return (this.description !== null && this.description !== "")
     }
     createCourse(){
-        if(!this.isValidName() || !this.isValidPlaces() || this.isValidRoom() || this.isValidTeacher() || this.isValidStudentClass()){
-            return false
+	    if(this.isValid()){
+            let reservation = new this.reservation(this);
+            return reservation.book();
         }
-        return this;
+	    return false;
     }
 };
