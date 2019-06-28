@@ -4,19 +4,9 @@ const Product   = require ('../product.js');
 
 jest.mock('../service/database.js')
 const mockDatabase = require('../service/database.js')
-const dMock = jest.fn()
 mockDatabase.mockImplementation(() => {
   return {
-  save:dMock
-  }
-});
-
-jest.mock('../service/mailer.js')
-const mockMailer = require('../service/mailer.js');
-const mMock = jest.fn();
-mockMailer.mockImplementation(() => {
-  return {
-  send:mMock
+  count:12
   }
 });
 
