@@ -5,7 +5,8 @@ module.exports = class User{
 	    this.places = places;
 	    this.studentClass = studentClass;
 	    this.teacher = teacher;
-	    this.room = room;
+        this.room = room;
+        console.log(date)
 	    this.date = date;
 	    this.duration = duration;
   	}
