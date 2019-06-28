@@ -14,8 +14,6 @@ let unvalidFirstnameEmpty= new User('dylan.settbon@hotmail.fr','','settbon','stu
 let unvalidLastnameEmpty = new User('dylan.settbon@hotmail.fr','dylan','','student','22',true);
 
 
-
-
 test('not valid Teacher role', () => {
     expect(unvalidTeacherRoles.isValidTeacher()).toBe(false);
 });

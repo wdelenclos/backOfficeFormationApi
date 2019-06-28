@@ -7,6 +7,7 @@ module.exports = class Reservation{
     }
 
     book(){
+        console.log(this.course)
         return (this.course.room.canContain(this.course.places) && this.isFree())
     }
 

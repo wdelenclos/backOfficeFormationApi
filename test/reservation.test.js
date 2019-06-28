@@ -1,7 +1,9 @@
+const Room = require('../room.js')
+
 jest.mock('../service/database.js')
 const mockDatabase = require('../service/database.js')
 const cMock = jest.fn().mockReturnValue(1)
-const gMock = jest.fn().mockReturnValue({'name':'A1','places':20})
+const gMock = jest.fn().mockReturnValue(new Room('A1',20))
 mockDatabase.mockImplementation(() => {
   return {
   count:cMock,
@@ -11,7 +13,6 @@ mockDatabase.mockImplementation(() => {
 
 const Reservation  = require('../reservation.js');
 const Course  = require('../course.js');
-const Room = require('../room.js')
 
 afterEach(() => {
     cMock.mockClear();
