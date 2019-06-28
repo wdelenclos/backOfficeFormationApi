@@ -7,9 +7,6 @@ module.exports = class User{
         this.age = age
         this.sendIDCard = sendIDCard
 
-        if(!['teacher','student'].includes(this.roles)){
-          throw new Error();
-        }
       }
     
     isValidTeacher(){
@@ -18,5 +15,17 @@ module.exports = class User{
 
     isValidStudent(){
       return this.roles == 'student'
+    }
+
+    isValidRoles(){
+        return this.roles == 'teacher' || this.roles == 'student'
+    }
+
+    isValidEmail(){
+        return /\S+@\S+\.\S+/.test(this.mail)
+    }
+
+    isValidName(){
+        return (this.firstname !== null && this.firstname !== "") && (this.lastname !== null && this.lastname !== "")
     }
 }

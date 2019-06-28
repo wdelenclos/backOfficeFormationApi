@@ -1,52 +1,59 @@
-const Course  = require('../course.js');
-const User  = require('../user.js');
-const Room   = require('../room.js');
-const Reservation   = require('../reservation.js');
-const mockDatabase = require('../service/database.js');
-jest.mock('../service/database.js');
-const dMock = jest.fn()
-mockDatabase.mockImplementation(() => {
-    return {
-        save:dMock
-    }
+const User = require('../user.js');
+
+let unvalidUser = new User('jerome','','bueno','1');
+let validUser = new User('jerome.bueno@hotmail.fr','jerome','bueno','22');
+
+let unvalidUserNameEmpty = new User('dylan','','','1');
+let unvalidUserNameNull = new User('dylan',null,null,'1');
+let unvalidUserAge = new User('jerome.bueno@hotmail.fr','jerome','bueno','12');
+
+let firstnameNull = new User('dylan@gmail.com',null,'settbon','13');
+let firstnameEmpty = new User('dylan@gmail.com','','settbon','13');
+let lastnameNull = new User('dylan@gmail.com','dylan',null,'13');
+let lastnameEmpty = new User('dylan@gmail.com','dylan','','13');
+
+test('not valid email', () => {
+    expect(unvalidUser.isValidEmail()).toBe(false);
 });
 
-afterEach(() => {
-    dMock.mockClear()
+test('valid email', () => {
+    expect(validUser.isValidEmail()).toBe(true);
 });
 
-
-
-let reservation = new Reservation();
-
-let teacher = new User('wdelenclos@gmail.com','Wladimir','Delenclos','teacher',56, false);
-let student = [new User('tata@gmail.com','Tata','Toto','student', 56, true), new User('tata@gmail.com','Tata','Toto','student', 56, true),new User('tata@gmail.com','Tata','Toto','student', 56, true)];
-let room = new Room('B4', 20);
-
-let courseMock = new Course('Test Unitaire', 'COurs de test unitaire', 55, Reservation, student, teacher, room, new Date(), 2);
-
-
-// Teacher tests
-
-describe('When teacher is not valid', () => {
-    it('Should prevent saving', () => {
-        courseMock.createCourse();
-        expect(courseMock.isValidTeacher()).toBe(false);
-        expect(reservation.book()).not.toHaveBeenCalled();
-    });
+test('not valid name empty or null', () => {
+    expect(unvalidUserNameEmpty.isValidName()).toBe(false);
+    expect(unvalidUserNameNull.isValidName()).toBe(false);
 });
 
-
-let teacherTrue = new User('wdelenclos@gmail.com','Wladimir','Delenclos','teacher',32, true);
-let courseMock = new Course('Test Unitaire', 'COurs de test unitaire', 55, Reservation, student, teacherTrue, room, new Date(), 2);
-
-describe('When teacher is valid', () => {
-    it('Should prevent saving', () => {
-        courseMock.createCourse();
-        expect(courseMock.isValidTeacher()).toBe(true);
-        expect(reservation.book()).toHaveBeenCalled();
-    });
+test('valid name', () => {
+    expect(validUser.isValidName()).toBe(true);
+});
+test('valid age', () => {
+    expect(validUser.isValidName()).toBe(true);
 });
 
+test('not valid age', () => {
+    expect(unvalidUserAge.isValidAge()).toBe(false);
+});
 
-// Teacher tests
+test('not valid user', () => {
+    expect(unvalidUser.isValid()).toBe(false);
+});
+
+test('valid user', () => {
+    expect(validUser.isValid()).toBe(true);
+});
+
+test('not valid user firstname null', () => {
+    expect(firstnameNull.isValid()).toBe(false);
+});
+test('not valid user firstname empty', () => {
+    expect(firstnameEmpty.isValid()).toBe(false);
+});
+
+test('not valid user lastname null', () => {
+    expect(lastnameNull.isValid()).toBe(false);
+});
+test('not valid user lastname null', () => {
+    expect(lastnameEmpty.isValid()).toBe(false);
+});
