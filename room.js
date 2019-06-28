@@ -3,7 +3,6 @@ module.exports = class Room{
         this.name = name;
         this.places = places;
     }
-
     canContain(places){
         return (this.places > places) && places > 0
     }
