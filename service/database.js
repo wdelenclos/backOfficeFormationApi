@@ -1,6 +1,14 @@
 module.exports = class Database{
-  	save(exchange){
-  		console.log('----- Save Exchange ------');
-  		console.log(exchange)
+	get(collection,criteria){
+		return null
+	}
+
+	count(collection,criteria){
+		return null
+	}
+
+  	save(data){
+  		console.log('----- Save ------');
+  		console.log(data)
   	}
 }
