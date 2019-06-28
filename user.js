@@ -15,4 +15,8 @@ module.exports = class User{
     isValidTeacher(){
       return this.roles == 'teacher' && this.age >= 18 && this.sendIDCard
     }
+
+    isValidStudent(){
+      return this.roles == 'student'
+    }
 }
