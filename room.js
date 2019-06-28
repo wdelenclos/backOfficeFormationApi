@@ -1,10 +1,10 @@
 module.exports = class Room{
-    constructor(name,seat,date,duration) {
+    constructor(name,places) {
         this.name = name;
-        this.seat = seat;
-        this.date = date;
-        this.duration = duration;
+        this.places = places;
     }
 
-
+    canContain(places){
+        return (this.places > places) && places > 0
+    }
 }
