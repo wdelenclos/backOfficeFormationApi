@@ -1,3 +1,5 @@
+const database = require('/service/database.js');
+
 module.exports = class User{
 	constructor(name,description,places, reservation, teacher, room, date, duration) {
 	    this.name = name;
@@ -11,7 +13,7 @@ module.exports = class User{
   	}
 
   	isValid(){
-      return !(!this.isValidName() || !this.isValidPlaces() || !this.isValidRoom() || !this.isValidTeacher() || !this.isValidReservation() || !this.isValidDescription);
+      return !(!this.isValidName() || !this.isValidPlaces() || !this.isValidRoom() || !this.isValidTeacher() || !this.isValidDescription);
 
   	}
     isValidName(){
@@ -30,13 +32,8 @@ module.exports = class User{
     isValidDescription(){
 	    return (this.description !== null && this.description !== "")
     }
-    isValidReservation(){
-        return (typeof this.reservation === 'object' && this.reservation.isValid())
-    }
     createCourse(){
-        if(this.isValid()){
-            return false
-        }
-        return this;
+	    let reservation = new this.reservation(database.get('room',{'room.name' : this.room.name}));
+	    return reservation.book();
     }
 };
