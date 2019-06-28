@@ -1,35 +1,18 @@
 module.exports = class User{
-	constructor(mail,firstname,lastname,age) {
-	    this.mail = mail;
-	    this.firstname = firstname;
-	    this.lastname = lastname;
-	    this.age = age;
-  	}
+    constructor(mail,firstname,lastname,roles,age,sendIDCard) {
+        this.mail = mail;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.roles = roles;
+        this.age = age
+        this.sendIDCard = sendIDCard
 
-  	isValid(){
-      if (!this.isValidEmail() || !this.isValidName() || !this.isValidAge()){
-        return false
+        if(!['teacher','student'].includes(this.roles)){
+          throw new Error();
+        }
       }
-  		return true;
-  	}
-
-    isValidEmail(){
-      return /\S+@\S+\.\S+/.test(this.mail)
-    }
-
-    isValidName(){
-      return (this.firstname !== null && this.firstname !== "") && (this.lastname !== null && this.lastname !== "")
-    }
-
-    isValidAge(){
-      return this.age >= 13
-    }
-
-    get mail() {
-      return this._mail;
-    }
-
-    set mail(newMail) {
-      this._mail = newMail;
+    
+    isValidTeacher(){
+      return this.roles == 'teacher' && this.age >= 18 && this.sendIDCard
     }
 }
