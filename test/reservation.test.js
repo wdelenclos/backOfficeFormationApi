@@ -1,20 +1,25 @@
 jest.mock('../service/database.js')
 const mockDatabase = require('../service/database.js')
-const dMock = jest.fn().mockReturnValue(1)
+const cMock = jest.fn().mockReturnValue(1)
+const gMock = jest.fn().mockReturnValue({'name':'A1','places':20})
 mockDatabase.mockImplementation(() => {
   return {
-  count:dMock
+  count:cMock,
+  get: gMock
   }
 });
 
 const Reservation  = require('../reservation.js');
 const Course  = require('../course.js');
+const Room = require('../room.js')
 
 afterEach(() => {
-    dMock.mockClear();
+    cMock.mockClear();
+    gMock.mockClear();
 });
 
-let course = new Course(null,null,null,null,null,null,new Date(),120)
+let room = new Room("A1",15)
+let course = new Course(null,null,18,null,null,null,room,new Date(),120)
 let reservation = new Reservation(course)
 
 describe('When has reservations in same moment', () => {
@@ -23,8 +28,8 @@ describe('When has reservations in same moment', () => {
   });
 });
 
-describe('When not has reservations in same moment', () => {
-    it('Should return true', () => {
-      expect(reservation.isFree()).toBe(true); 
+describe('When reservation was booked but not available', () => {
+    it('Should return false', () => {
+      expect(reservation.book()).toBe(false); 
     });
-});
+  });
