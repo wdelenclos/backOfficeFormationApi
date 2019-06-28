@@ -2,7 +2,7 @@ const DB = require('./service/database.js');
 
 const database = new DB;
 
-module.exports = class User{
+module.exports = class Course{
 	constructor(name,description, places, reservation, students, teacher, room, date, duration) {
 	    this.name = name;
 	    this.description = description;
@@ -10,7 +10,7 @@ module.exports = class User{
 	    this.reservation = reservation;
 	    this.teacher = teacher;
 	    this.students = students;
-	    this.room = database.get('room',{'room.name' : this.room.name});
+	    this.room = database.get('room',{'room.name' : room.name});
 	    this.date = date;
 	    this.duration = duration;
   	}
