@@ -1,9 +1,9 @@
 module.exports = class User{
-	constructor(name,description,places, studentClass, teacher, room, date, duration) {
+	constructor(name,description,places, reservation, teacher, room, date, duration) {
 	    this.name = name;
 	    this.description = description;
 	    this.places = places;
-	    this.studentClass = studentClass;
+	    this.reservation = reservation;
 	    this.teacher = teacher;
 	    this.room = room;
 	    this.date = date;
@@ -29,8 +29,8 @@ module.exports = class User{
     isValidTeacher(){
         return (typeof this.teacher === 'object' && this.teacher.isValidTeacher())
     }
-    isValidStudentClass(){
-        return (typeof this.studentClass === 'object' && this.studentClass.isValidClass() && this.studentClass.size <= this.places)
+    isValidReservation(){
+        return (typeof this.reservation === 'object' && this.reservation.isValid())
     }
     createCourse(){
         if(!this.isValidName() || !this.isValidPlaces() || this.isValidRoom() || this.isValidTeacher() || this.isValidStudentClass()){
