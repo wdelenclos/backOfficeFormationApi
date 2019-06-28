@@ -1,9 +1,9 @@
 module.exports = class User{
-	constructor(name,description,places,students, teacher, room, date, duration) {
+	constructor(name,description,places, studentClass, teacher, room, date, duration) {
 	    this.name = name;
 	    this.description = description;
 	    this.places = places;
-	    this.students = students;
+	    this.studentClass = studentClass;
 	    this.teacher = teacher;
 	    this.room = room;
 	    this.date = date;
@@ -16,11 +16,6 @@ module.exports = class User{
       }
   		return true;
   	}
-
-    isValidEmail(){
-      return /\S+@\S+\.\S+/.test(this.mail)
-    }
-
     isValidName(){
       return (this.name !== null && this.name !== "")
     }
@@ -29,10 +24,13 @@ module.exports = class User{
     }
 
     isValidRoom(){
-	   return (typeof this.room === 'object' && this.room.available())
+	   return (typeof this.room === 'object' && this.room.isAvailable())
     }
     isValidTeacher(){
         return (typeof this.teacher === 'object' && this.teacher.isValidTeacher())
+    }
+    isValidStudentClass(){
+        return (typeof this.studentClass === 'object' && this.studentClass.isValidClass())
     }
     createCourse(){
         if(!this.isValidName() || !this.isValidPlaces() || this.isValidRoom() || this.isValidTeacher()){
