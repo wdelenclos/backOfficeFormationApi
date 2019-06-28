@@ -10,7 +10,6 @@ module.exports = class Course{
 	    this.reservation = reservation;
 	    this.teacher = teacher;
 	    this.students = students;
-	    console.log(room);
 	    this.room = database.get('room',{'room.name' : room.name});
 	    this.date = date;
 	    this.duration = duration;
