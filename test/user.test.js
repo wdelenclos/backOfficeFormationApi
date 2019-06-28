@@ -1,59 +1,71 @@
 const User = require('../user.js');
 
-let unvalidUser = new User('jerome','','bueno','1');
-let validUser = new User('jerome.bueno@hotmail.fr','jerome','bueno','22');
+let unvalidTeacherRoles = new User('dylan.settbon@hotmail.fr','dylan','settbon','student','22',true);
+let unvalidTeacherAge = new User('dylan.settbon@hotmail.fr','dylan','settbon','teacher','16',true);
+let unvalidTeacherCard = new User('dylan.settbon@hotmail.fr','dylan','settbon','teacher','19',false);
+let validTeacher = new User('dylan.settbon@hotmail.fr','dylan','settbon','teacher','22',true);
+let unvalidStudentRole = new User('dylan.settbon@hotmail.fr','dylan','settbon','teacher','19',true);
+let validStudent = new User('dylan.settbon@hotmail.fr','dylan','settbon','student','22',true);
+let unvalidUser = new User('dylan.settbon@hotmail.fr','dylan','settbon','customer','22',true);
+let unvalidStudentEmail = new User('dylan','dylan','settbon','student','22',true);
+let unvalidFirstnameNull = new User('dylan.settbon@hotmail.fr',null,'settbon','student','22',true);
+let unvalidLastnameNull = new User('dylan.settbon@hotmail.fr','dylan',null,'student','22',true);
+let unvalidFirstnameEmpty= new User('dylan.settbon@hotmail.fr','','settbon','student','22',true);
+let unvalidLastnameEmpty = new User('dylan.settbon@hotmail.fr','dylan','','student','22',true);
 
-let unvalidUserNameEmpty = new User('dylan','','','1');
-let unvalidUserNameNull = new User('dylan',null,null,'1');
-let unvalidUserAge = new User('jerome.bueno@hotmail.fr','jerome','bueno','12');
 
-let firstnameNull = new User('dylan@gmail.com',null,'settbon','13');
-let firstnameEmpty = new User('dylan@gmail.com','','settbon','13');
-let lastnameNull = new User('dylan@gmail.com','dylan',null,'13');
-let lastnameEmpty = new User('dylan@gmail.com','dylan','','13');
 
-test('not valid email', () => {
-    expect(unvalidUser.isValidEmail()).toBe(false);
-});
 
-test('valid email', () => {
-    expect(validUser.isValidEmail()).toBe(true);
-});
-
-test('not valid name empty or null', () => {
-    expect(unvalidUserNameEmpty.isValidName()).toBe(false);
-    expect(unvalidUserNameNull.isValidName()).toBe(false);
-});
-
-test('valid name', () => {
-    expect(validUser.isValidName()).toBe(true);
-});
-test('valid age', () => {
-    expect(validUser.isValidName()).toBe(true);
+test('not valid Teacher role', () => {
+    expect(unvalidTeacherRoles.isValidTeacher()).toBe(false);
 });
 
 test('not valid age', () => {
-    expect(unvalidUserAge.isValidAge()).toBe(false);
+    expect(unvalidTeacherAge.isValidTeacher()).toBe(false);
 });
 
-test('not valid user', () => {
-    expect(unvalidUser.isValid()).toBe(false);
+test('not valid id card', () => {
+    expect(unvalidTeacherCard.isValidTeacher()).toBe(false);
 });
 
-test('valid user', () => {
-    expect(validUser.isValid()).toBe(true);
+test('valid teacher', () => {
+    expect(validTeacher.isValidTeacher()).toBe(true);
 });
 
-test('not valid user firstname null', () => {
-    expect(firstnameNull.isValid()).toBe(false);
-});
-test('not valid user firstname empty', () => {
-    expect(firstnameEmpty.isValid()).toBe(false);
+test('not valid Student role', () => {
+    expect(unvalidStudentRole.isValidStudent()).toBe(false);
 });
 
-test('not valid user lastname null', () => {
-    expect(lastnameNull.isValid()).toBe(false);
+test('valid student', () => {
+    expect(validStudent.isValidStudent()).toBe(true);
 });
-test('not valid user lastname null', () => {
-    expect(lastnameEmpty.isValid()).toBe(false);
+
+test('not valid role user', () => {
+    expect(unvalidUser.isValidRoles()).toBe(false);
+});
+
+test('valid role user', () => {
+    expect(validStudent.isValidRoles()).toBe(true);
+});
+
+test('not valid email', () => {
+    expect(unvalidStudentEmail.isValidEmail()).toBe(false);
+});
+
+test('valid email', () => {
+    expect(validTeacher.isValidEmail()).toBe(true);
+});
+
+test('not valid firstname null', () => {
+    expect(unvalidFirstnameNull.isValidName()).toBe(false);
+})
+test('not valid lastname null', () => {
+    expect(unvalidLastnameNull.isValidName()).toBe(false);
+});
+
+test('not valid firstname empty', () => {
+    expect(unvalidFirstnameEmpty.isValidName()).toBe(false);
+})
+test('not valid lastname empty', () => {
+    expect(unvalidLastnameEmpty.isValidName()).toBe(false);
 });
